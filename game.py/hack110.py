@@ -25,6 +25,7 @@ button_width = 200
 button_height = 50
 button_y_start = height // 2
 button_spacing = 20
+norm_max, hard_max = 0, 0
 
 start_button_rect = pygame.Rect((width // 2) - (button_width // 2), button_y_start, button_width, button_height)
 instructions_button_rect = pygame.Rect((width // 2) - (button_width // 2), button_y_start + button_height + button_spacing, button_width, button_height)
@@ -41,7 +42,8 @@ try:
     menu_background_image = pygame.image.load("game.py/images/colorful-blocks-falling-gently-with-clouds-below-daytime-animation-video.jpg").convert()
     menu_background_image = pygame.transform.scale(menu_background_image, (width, height))
 except Exception as e:
-    print(f"Error loading image: {e}")
+    print(f"Error loading image: {e}")  # I have no idea what this does. My background wouldn't display
+                                        # without it so I had to search this up.
     menu_background_image = None
 
 def reset_game():
@@ -111,6 +113,12 @@ while running:
                     hard_mode = not hard_mode
 
         elif game_state == "Game Over!":
+            if hard_mode is False:
+                if score > norm_max:
+                    norm_max = score
+            else:
+                if score > hard_max:
+                    hard_max = score
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     game_state = "Menu"
@@ -132,6 +140,14 @@ while running:
         title_text = title_font.render("Catch the Falling Blocks!", True, BLACK)
         title_rect = title_text.get_rect(center = (width // 2, height // 2 - 200))
         screen.blit(title_text, title_rect)
+
+        norm_max_text = font.render(f"High Score (Normal Mode): {norm_max}", True, BLACK)
+        norm_max_rect = norm_max_text.get_rect(midleft = (10, height - 60))
+        screen.blit(norm_max_text, norm_max_rect)
+
+        hard_max_text = font.render(f"High Score (Hard Mode): {hard_max}", True, BLACK)
+        hard_max_rect = hard_max_text.get_rect(midleft = (10, height - 10))
+        screen.blit(hard_max_text, hard_max_rect)
 
         if start_button_rect.collidepoint(mouse_pos):
             pygame.draw.rect(screen, LIGHT, start_button_rect)
