@@ -36,7 +36,7 @@ modifier_1_button_rect = pygame.Rect((width // 2) - (button_width), button_y_sta
 modifier_2_button_rect = pygame.Rect((width // 2) - (button_width), button_y_start - 100 + button_height + button_spacing, 2*button_width, button_height)
 modifier_3_button_rect = pygame.Rect((width // 2) - (button_width), button_y_start - 100 + 2*button_height + 2*button_spacing, 2*button_width, button_height)
 modifier_4_button_rect = pygame.Rect((width // 2) - (button_width), button_y_start - 100 + 3*button_height + 3*button_spacing, 2*button_width, button_height)
-force_menu_button_rect = pygame.Rect(width - 150, 10, button_width // 2, button_height)
+force_menu_button_rect = pygame.Rect(width - 100, 10, button_width // 4, button_height)
 
 try:
     menu_background_image = pygame.image.load("game.py/images/colorful-blocks-falling-gently-with-clouds-below-daytime-animation-video.jpg").convert()
@@ -301,7 +301,8 @@ while running:
             pygame.draw.rect(screen, LIGHT, force_menu_button_rect)
         else:
             pygame.draw.rect(screen, DARK, force_menu_button_rect)
-        force_menu_text = font.render("Menu", True, WHITE)
+            
+        force_menu_text = seguisy28.render("🏠", True, WHITE)
         force_menu_text_rect = force_menu_text.get_rect(center=force_menu_button_rect.center)
         screen.blit(force_menu_text, force_menu_text_rect)
 
