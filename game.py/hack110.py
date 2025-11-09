@@ -204,7 +204,7 @@ while running:
         line1 = font.render("Use LEFT and RIGHT arrows to move platform", True, DARK_BROWN)
         line2 = font.render("Catch BLUE blocks to increase score", True, DARK_BROWN)
         line3 = font.render("Catch RED hearts for extra lives*", True, DARK_BROWN)
-        line4 = font.render("Game will speed up with higher score, slow down when lives lost", True, DARK_BROWN)
+        line4 = font.render("Game will speed up with higher score, slow down* when lives lost", True, DARK_BROWN)
         line5 = font.render("*Normal mode exclusive ", True, DARK_BROWN)
 
         screen.blit(title, title.get_rect(center=(width // 2, 150)))
@@ -301,7 +301,7 @@ while running:
             pygame.draw.rect(screen, LIGHT, force_menu_button_rect)
         else:
             pygame.draw.rect(screen, DARK, force_menu_button_rect)
-            
+
         force_menu_text = seguisy28.render("🏠", True, WHITE)
         force_menu_text_rect = force_menu_text.get_rect(center=force_menu_button_rect.center)
         screen.blit(force_menu_text, force_menu_text_rect)
@@ -348,8 +348,9 @@ while running:
                 game_state = "Game Over!"
             else:
                 lives -= 1
-                b_speed /= 1.5
-                p_speed  /= 1.5
+                if hard_mode is False:
+                    b_speed /= 1.5
+                    p_speed  /= 1.5
                 falling_blocks.y = 0
                 falling_blocks.x = random.randint(0, width - 20)
 
